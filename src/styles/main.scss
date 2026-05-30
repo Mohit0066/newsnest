@@ -1,0 +1,375 @@
+// ── Variables ──────────────────────────────────────────────
+$teal:        #1D9E75;
+$teal-light:  #E1F5EE;
+$teal-dark:   #085041;
+
+$bg-light:    #f8f9fa;
+$bg-dark:     #0f1117;
+$card-dark:   #1a1d27;
+$text-dark:   #e2e8f0;
+$muted-dark:  #8892a0;
+
+$radius-sm:   8px;
+$radius-md:   12px;
+$radius-lg:   16px;
+
+// ── Reset ──────────────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: $bg-light;
+  color: #1a1a2e;
+  transition: background 0.3s, color 0.3s;
+
+  &.dark {
+    background: $bg-dark;
+    color: $text-dark;
+  }
+}
+
+// ── App Layout ─────────────────────────────────────────────
+.app-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+
+// ── Header ─────────────────────────────────────────────────
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0 1.25rem;
+  border-bottom: 1px solid #e8eaf0;
+
+  .dark & { border-color: #2a2d3a; }
+
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: #1a1a2e;
+    letter-spacing: -0.5px;
+
+    .dark & { color: $text-dark; }
+
+    span { color: $teal; }
+  }
+
+  .tagline {
+    font-size: 13px;
+    color: #888;
+    margin-top: 2px;
+  }
+
+  .theme-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: $radius-sm;
+    border: 1px solid #e0e0e0;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    color: #555;
+    transition: all 0.2s;
+
+    &:hover { background: #f0f0f0; }
+
+    .dark & {
+      border-color: #3a3d4a;
+      color: $text-dark;
+      &:hover { background: #2a2d3a; }
+    }
+  }
+}
+
+// ── Stats Bar ──────────────────────────────────────────────
+.stats-bar {
+  display: flex;
+  gap: 12px;
+  margin: 1.5rem 0 1.25rem;
+
+  .stat-card {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: $radius-md;
+    padding: 14px;
+    text-align: center;
+
+    .dark & { background: $card-dark; border-color: #2a2d3a; }
+
+    .num {
+      font-size: 24px;
+      font-weight: 600;
+      color: $teal;
+    }
+    .lbl {
+      font-size: 12px;
+      color: #888;
+      margin-top: 2px;
+    }
+  }
+}
+
+// ── Search ─────────────────────────────────────────────────
+.search-wrap {
+  position: relative;
+  margin-bottom: 1.25rem;
+
+  svg {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    width: 18px;
+    height: 18px;
+  }
+
+  input {
+    width: 100%;
+    padding: 11px 16px 11px 42px;
+    border-radius: $radius-md;
+    border: 1px solid #e0e0e0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    background: #fff;
+    color: #1a1a2e;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: $teal;
+      box-shadow: 0 0 0 3px rgba($teal, 0.12);
+    }
+
+    .dark & {
+      background: $card-dark;
+      border-color: #2a2d3a;
+      color: $text-dark;
+      &::placeholder { color: $muted-dark; }
+    }
+  }
+}
+
+// ── Category Pills ─────────────────────────────────────────
+.cat-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+
+  .cat-pill {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.18s;
+
+    &:hover { background: #f0f0f0; }
+    &.active { background: $teal; color: #fff; border-color: $teal; }
+
+    .dark & {
+      border-color: #3a3d4a;
+      color: $muted-dark;
+      &:hover { background: #2a2d3a; }
+      &.active { background: $teal; color: #fff; border-color: $teal; }
+    }
+  }
+}
+
+// ── News Grid ──────────────────────────────────────────────
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Article Card ───────────────────────────────────────────
+.article-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    border-color: #ddd;
+  }
+
+  .dark & {
+    background: $card-dark;
+    border-color: #2a2d3a;
+    &:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.3); border-color: #3a3d4a; }
+  }
+
+  .card-thumb {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    background: #f0f4f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+
+    .dark & { background: #252836; }
+  }
+
+  .card-body {
+    padding: 14px 16px;
+    flex: 1;
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .time {
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 7px;
+      color: #1a1a2e;
+
+      .dark & { color: $text-dark; }
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: #777;
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+
+      .dark & { color: $muted-dark; }
+    }
+  }
+
+  .card-footer {
+    padding: 10px 16px;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .dark & { border-color: #2a2d3a; }
+
+    .source {
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    a.read-link {
+      font-size: 12px;
+      color: $teal;
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover { text-decoration: underline; }
+    }
+  }
+}
+
+// ── Badge colors ───────────────────────────────────────────
+.badge-tech      { background: #dbeafe; color: #1e40af; }
+.badge-science   { background: #dcfce7; color: #166534; }
+.badge-business  { background: #ede9fe; color: #5b21b6; }
+.badge-world     { background: #fef9c3; color: #854d0e; }
+.badge-sports    { background: #ffe4e6; color: #9f1239; }
+.badge-health    { background: #ccfbf1; color: #065f46; }
+
+// ── Empty state ────────────────────────────────────────────
+.empty-state {
+  text-align: center;
+  padding: 4rem 0;
+  color: #aaa;
+  font-size: 15px;
+
+  .emoji { font-size: 48px; display: block; margin-bottom: 12px; }
+}
+
+// ── Loading ────────────────────────────────────────────────
+.loading {
+  text-align: center;
+  padding: 4rem 0;
+
+  .spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid #e0e0e0;
+    border-top-color: $teal;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin: 0 auto 12px;
+  }
+
+  p { font-size: 14px; color: #aaa; }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+// ── API Key Banner ─────────────────────────────────────────
+.api-banner {
+  background: #fff8e1;
+  border: 1px solid #ffd54f;
+  border-radius: $radius-md;
+  padding: 14px 18px;
+  margin: 1rem 0 1.5rem;
+  font-size: 13px;
+  color: #5d4037;
+  line-height: 1.6;
+
+  a { color: $teal; font-weight: 500; }
+
+  code {
+    background: #f0ede0;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+}
+
+// ── Footer ─────────────────────────────────────────────────
+.footer {
+  text-align: center;
+  padding: 2rem 0 0;
+  font-size: 12px;
+  color: #bbb;
+  border-top: 1px solid #eee;
+  margin-top: 2rem;
+
+  .dark & { border-color: #2a2d3a; }
+}
