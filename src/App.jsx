@@ -101,17 +101,7 @@ export default function App() {
         </button>
       </header>
 
-      {/* API Key Banner */}
-      {usingMock && (
-        <div className="api-banner">
-          <strong>📌 Demo Mode — showing sample data.</strong> To load live news:
-          <ol style={{ marginTop: 6, paddingLeft: 18 }}>
-            <li>Get a free API key from <a href="https://newsapi.org" target="_blank" rel="noreferrer">newsapi.org</a></li>
-            <li>Open <code>src/App.jsx</code> and replace <code>YOUR_NEWSAPI_KEY_HERE</code> with your key</li>
-          </ol>
-        </div>
-      )}
-
+      
       {/* Stats */}
       <div className="stats-bar">
         <div className="stat-card">
