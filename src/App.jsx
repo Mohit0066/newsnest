@@ -5,7 +5,7 @@ import NewsCard from './components/NewsCard';
 // ─────────────────────────────────────────────────────────────
 // CONFIGURATION — Replace with your free key from newsapi.org
 // ─────────────────────────────────────────────────────────────
-const API_KEY = process.env.REACT_APP_NEWS_API_KEY;
+const API_KEY = '';
 
 const CATEGORIES = ['All', 'Tech', 'Science', 'Business', 'World', 'Sports', 'Health'];
 
