@@ -47,7 +47,15 @@ export default function App() {
   }, [dark]);
 
   // Fetch news
- const fetchNews = useCallback(async (cat) => {
+  const fetchNews = useCallback(async (cat) => {
+  if (!API_KEY) {
+    setUsingMock(true);
+    const data = cat === 'All'
+      ? MOCK_ARTICLES
+      : MOCK_ARTICLES.filter(a => a.cat === cat);
+    setArticles(data);
+    return;
+  }
   setLoading(true);
   try {
     const topic = cat === 'All' ? 'breaking-news' : CAT_MAP[cat];
