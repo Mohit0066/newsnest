@@ -5,7 +5,7 @@ import NewsCard from './components/NewsCard';
 // ─────────────────────────────────────────────────────────────
 // CONFIGURATION — Replace with your free key from newsapi.org
 // ─────────────────────────────────────────────────────────────
-const API_KEY = process.env.REACT_APP_NEWS_API_KEY;;
+const API_KEY = process.env.REACT_APP_NEWS_API_KEY;
 
 const CATEGORIES = ['All', 'Tech', 'Science', 'Business', 'World', 'Sports', 'Health'];
 
@@ -14,7 +14,7 @@ const CAT_MAP = {
   Tech: 'technology',
   Science: 'science',
   Business: 'business',
-  World: 'general',
+  World: 'world',
   Sports: 'sports',
   Health: 'health',
 };
@@ -47,40 +47,23 @@ export default function App() {
   }, [dark]);
 
   // Fetch news
-  const fetchNews = useCallback(async (cat) => {
-    if (API_KEY === 'YOUR_NEWSAPI_KEY_HERE') {
-      // Use mock data
-      setUsingMock(true);
-      const data = cat === 'All'
-        ? MOCK_ARTICLES
-        : MOCK_ARTICLES.filter(a => a.cat === cat);
-      setArticles(data);
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const endpoint = cat === 'All'
-        ? `https://newsapi.org/v2/top-headlines?country=us&pageSize=12&apiKey=${API_KEY}`
-        : `https://newsapi.org/v2/top-headlines?country=us&category=${CAT_MAP[cat]}&pageSize=12&apiKey=${API_KEY}`;
-
-      const res  = await fetch(endpoint);
-      const data = await res.json();
-
-      if (data.status === 'ok') {
-        const tagged = (data.articles || [])
-          .filter(a => a.title && a.title !== '[Removed]')
-          .map(a => ({ ...a, cat: cat === 'All' ? 'World' : cat }));
-        setArticles(tagged);
-      }
-    } catch (err) {
-      console.error('NewsAPI error:', err);
-      setUsingMock(true);
-      setArticles(MOCK_ARTICLES);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+ const fetchNews = useCallback(async (cat) => {
+  setLoading(true);
+  try {
+    const topic = cat === 'All' ? 'breaking-news' : CAT_MAP[cat];
+    const res = await fetch(
+      `https://gnews.io/api/v4/top-headlines?topic=${topic}&lang=en&max=12&apikey=${API_KEY}`
+    );
+    const data = await res.json();
+    const tagged = (data.articles || []).map(a => ({ ...a, cat: cat === 'All' ? 'World' : cat }));
+    setArticles(tagged);
+  } catch (err) {
+    setUsingMock(true);
+    setArticles(MOCK_ARTICLES);
+  } finally {
+    setLoading(false);
+  }
+}, []);
 
   useEffect(() => { fetchNews(activecat); }, [activecat, fetchNews]);
 
